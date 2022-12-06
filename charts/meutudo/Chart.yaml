@@ -1,0 +1,4 @@
+apiVersion: v2
+name: tudo-pwa
+description: Chart for the meutudo pwa
+version: 0.1.0

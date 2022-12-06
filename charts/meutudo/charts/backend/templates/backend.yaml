@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ required "Name is required" .Values.global.name }}-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ required "Name is required" .Values.global.name }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ required "Name is required" .Values.global.name }}-backend
+    spec:
+      containers:
+        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
+          name: {{ required "Name is required" .Values.global.name }}-backend
+          resources:
+            requests:
+              cpu: 256m
+              memory: 1024m
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: spring.profiles.active
+              value: {{ default "dev" .Values.profiles }}
+            - name: SPRING_DATASOURCE_URL
+              value: {{ required "DB URI Required" .Values.db.url }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ required "Database username required" .Values.db.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ required "Database username required" .Values.db.password }}
+            - name: log.output
+              value: json-output
+            - name: LOG_APPENDER
+              value: json-output
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ required "Name is required" .Values.global.name }}-backend
+spec:
+  selector:
+    app: {{ required "Name is required" .Values.global.name }}-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

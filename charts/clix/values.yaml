@@ -1,0 +1,17 @@
+global:
+  name: "test"
+  registryName: 490490484770.dkr.ecr.us-east-1.amazonaws.com
+  imageTag: 748.hlg
+  dnsZone: homolog.meutudo.app
+
+clix:
+  imageName: mt-clix
+  ingress:
+    hostname: clix-ephemeral
+  profiles: qa
+  telli:
+    url: https://formalizacao-dev.homolog.meutudo.app/tudo
+  db:
+    host: "tudohmgv2.cbxzon5iqbut.us-east-1.rds.amazonaws.com"
+    username: TUDOCLIXQA
+    password: 7WHYPaDesenv

@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ required "Name is required" .Values.global.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ required "Name is required" .Values.global.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ required "Name is required" .Values.global.name }}
+    spec:
+      containers:
+        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.frontend.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
+          name: {{ required "Name is required" .Values.global.name }}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 3000
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /usr/src/app/dist/config.js
+              subPath: config.js
+      volumes:
+        - name: config
+          configMap:
+            name: frontend-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ required "Name is required" .Values.global.name }}
+spec:
+  selector:
+    app: {{ required "Name is required" .Values.global.name }}
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ required "Name is required" .Values.global.name }}
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+spec:
+  rules:
+    - host: {{ default "tudo-pwa" .Values.frontend.ingress.hostname }}.{{ .Values.global.dnsZone }}
+      http:
+        paths:
+        - backend:
+            service:
+              name: {{ required "Name is required" .Values.global.name }}
+              port:
+                number: 80
+            path: /
+            pathType: ImplementationSpecific
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  config.js: |
+    const config = (() => {
+      return {
+        'VUE_APP_BACKEND_BASE_URL': 'http://{{ default "ship-manager-backend" .Values.backend.ingress.hostname }}.{{ .Values.global.dnsZone }}',
+        'VUE_APP_PROJECT_VERSION': '{{ .Values.global.imageTag }}'
+      }
+    })()
+

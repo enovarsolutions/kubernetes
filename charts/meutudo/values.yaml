@@ -1,0 +1,17 @@
+global:
+  name: "test"
+  registryName: 490490484770.dkr.ecr.us-east-1.amazonaws.com
+  imageTag: platform.4
+  dnsZone: homolog.meutudo.app
+
+backend:
+  imageName: telli
+  db:
+    url: "jdbc:oracle:thin:@//tudohmgv2.cbxzon5iqbut.us-east-1.rds.amazonaws.com:1522/tudov2"
+    username: TUDOPLATFORM
+    password: uewrehiamanha
+
+frontend:
+  imageName: frontend
+  ingress:
+    hostname:
