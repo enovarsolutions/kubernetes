@@ -14,7 +14,7 @@ spec:
     spec:
       serviceAccountName: clix-services
       containers:
-        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
+        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.clix.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
           name: {{ required "Name is required" .Values.global.name }}
           resources:
             requests:
@@ -25,7 +25,7 @@ spec:
               name: http
           env:
             - name: spring.profiles.active
-              value: {{ default "dev" .Values.profiles }}
+              value: {{ default "dev" .Values.clix.profiles }}
             - name: LOG_APPENDER
               value: out-json
             - name: aws.s3-enabled
@@ -33,13 +33,13 @@ spec:
             - name: meutudo.uploads-in-s3
               value: "true"
             - name: meutudo.telli.base-url
-              value: {{ required "telli url required" .Values.telli.url }}
+              value: {{ required "telli url required" .Values.clix.telli.url }}
             - name: db.host
-              value: {{ .Values.db.host }}
+              value: {{ .Values.clix.db.host }}
             - name: db.username
-              value: {{ .Values.db.username }}
+              value: {{ .Values.clix.db.username }}
             - name: db.password
-              value: {{ .Values.db.password }}
+              value: {{ .Values.clix.db.password }}
             - name: sga.password
               value: '^^G6^Qy:5)L#*=@^'
 ---
@@ -63,7 +63,7 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
 spec:
   rules:
-    - host: {{ default "tudo-pwa" .Values.ingress.hostname }}.{{ .Values.global.dnsZone }}
+    - host: {{ default "tudo-pwa" .Values.clix.ingress.hostname }}.{{ .Values.global.dnsZone }}
       http:
         paths:
         - backend:
