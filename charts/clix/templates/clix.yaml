@@ -14,7 +14,7 @@ spec:
     spec:
       serviceAccountName: clix-services
       containers:
-        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.frontend.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
+        - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
           name: {{ required "Name is required" .Values.global.name }}
           resources:
             requests:
