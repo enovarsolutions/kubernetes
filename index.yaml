@@ -1,14 +1,23 @@
 apiVersion: v1
 entries:
   clix:
-    - apiVersion: v2
-      appVersion: v0.1.0
-      created: "2022-12-06T21:38:21.259904729Z"
-      description: 'clix helm'
-      digest: d41179e9fca13c2886e57e587c6575317a62d8850f1fde7c41ab4362723cc990
-      kubeVersion: '>= 1.21.0-0'
-      name: clix
-      type: application
-      urls:
-        - https://github.com/enovarsolutions/kubernetes/releases/download/clix-0.1.0/clix-0.1.0.tgz
-      version: 0.1.0
+  - apiVersion: v2
+    created: "2022-12-07T00:42:31.987194768Z"
+    description: Chart for the clix api
+    digest: a1f10c15a104493921517832209ab6c7bf9450c9934841cc7c549b753466b209
+    name: clix
+    urls:
+    - https://github.com/enovarsolutions/kubernetes/releases/download/clix-0.2.0/clix-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2022-12-06T21:38:21.259904729Z"
+    description: clix helm
+    digest: d41179e9fca13c2886e57e587c6575317a62d8850f1fde7c41ab4362723cc990
+    kubeVersion: '>= 1.21.0-0'
+    name: clix
+    type: application
+    urls:
+    - https://github.com/enovarsolutions/kubernetes/releases/download/clix-0.1.0/clix-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-12-07T00:42:31.987207569Z"
