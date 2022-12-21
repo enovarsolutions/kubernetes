@@ -13,6 +13,10 @@ spec:
         app: {{ required "Name is required" .Values.global.name }}
     spec:
       serviceAccountName: clix-services
+      initContainers:
+        - name: init-db
+          image: 490490484770.dkr.ecr.us-east-1.amazonaws.com/mt-ansible:latest
+          command: ['ansible-playbook', 'ensure-database-playbook.yml', '--extra-vars', "database_user={{ .Values.clix.db.username }}"]
       containers:
         - image: {{ required "Registry is required" .Values.global.registryName }}/{{ required "Image name is required" .Values.clix.imageName }}:{{ required "Image tag is required" .Values.global.imageTag }}
           name: {{ required "Name is required" .Values.global.name }}
