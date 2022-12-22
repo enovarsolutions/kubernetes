@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   clix:
   - apiVersion: v2
+    created: "2022-12-22T16:31:40.608318554Z"
+    description: Chart for the clix api
+    digest: a4679f8029af2cccfc1448d1150f9a9c299ec917cc15b4f16a6079a0514679c9
+    name: clix
+    urls:
+    - https://github.com/enovarsolutions/kubernetes/releases/download/clix-0.5.1/clix-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
     created: "2022-12-21T20:02:21.932408709Z"
     description: Chart for the clix api
     digest: bfc766ebc64d0521a8ab5c9d83a787c9c0f86cda3f0b48f228bb5e5fbbe97107
@@ -60,4 +68,4 @@ entries:
     urls:
     - https://github.com/enovarsolutions/kubernetes/releases/download/clix-0.1.0/clix-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-21T20:02:21.93243261Z"
+generated: "2022-12-22T16:31:40.608447856Z"
